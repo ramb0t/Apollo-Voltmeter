@@ -94,16 +94,20 @@ int main(void)
 		//CheckJoystickMovement();
 		LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 		time++;
-		_delay_ms(1000);
+		_delay_ms(250);
 		lcd_clrscr();
 		lcd_puts("Hi ");
-		char buffer[7];
+		char buffer[10];
 		itoa(time,buffer,10);
 		lcd_puts(buffer);
+		lcd_goto(0x40); // second line
 		result = Read_DualSlope();
-		float result1 = result * 4.6875; // convert result to mV
-		//fputs(result1, &USBSerialStream);
+		double result1 = result * 4.6875; // convert result to mV
+		sprintf(buffer,"%f",result1); 
+		fputs(buffer, &USBSerialStream);
 		fputs("mV \r\n", &USBSerialStream);
+		itoa(result,buffer, 10);
+		lcd_puts(buffer);
 
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
 		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
@@ -142,7 +146,7 @@ void SetupHardware(void)
 	//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 	
 	
-	//Dual_Slope_Init();
+	
 	LEDs_Init();
 	USB_Init();
 	lcd_init();
@@ -151,9 +155,8 @@ void SetupHardware(void)
 	lcd_puts("Hello World!");
 	DDRC |= 1<<6;
 	PORTC |= (1<<6);
-	//lcd_puts("Hello World!");
-	//lcd_gotoxy(0,1);
-	//lcd_puts("Hello World!");
+	Dual_Slope_Init();
+
 }
 
 
@@ -194,13 +197,32 @@ uint8_t Read_DualSlope(void)
 {
 	#define t1	80
 	//Step1 
-	PINs_SetAll(PINS_In_Switch); 
+	//PINs_SetAll(PINS_In_Switch); 
+	
+	PORTF &= !(1<<0);
 	_delay_ms(t1); // wait 80mS
+	PORTF |= 1<<0;
 	//Step2
-	PINs_SetAll(PINS_In_Switch); // integrate and wait for zero crossing
-	//Step3
-	result = 128; 
-	return result;
+	
+	
+	//PINs_SetAll(PINS_Ref_Switch); // integrate and wait for zero crossing
+	PORTF |= 1<<1;
+	uint8_t t2 = 0;
+	uint8_t temp;
+	temp = DDRD;
+	DDRD &= !(1<<2); // input
+	
+	while(!(PIND & (1<<2))){ // pin4 is low
+		_delay_us(500);
+		t2++;
+		if (t2==255) break;
+	}
+	DDRD = temp;
+	PORTF &= !(1<<1);
+	PORTF |= 1<<0;
+	//PINs_SetAll(0);
+	//Step3 
+	return t2;
 	
 	//Step4
 	//Step5

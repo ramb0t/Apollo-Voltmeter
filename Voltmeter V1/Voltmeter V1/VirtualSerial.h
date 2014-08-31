@@ -43,6 +43,7 @@
 		#include <avr/interrupt.h>
 		#include <string.h>
 		#include <stdio.h>
+		#include <inttypes.h> // float stuff? 
 
 		#include "Descriptors.h"
 
@@ -77,24 +78,24 @@
 		void EVENT_USB_Device_ControlRequest(void);
  
 	/* Inline Functions: */
-	#define	PINS_In_Switch PD0
-	#define PINS_Ref_Switch PD1
-	#define PINS_Comp_Input PD4
-	#define PINS_PortD	(PINS_In_Switch|PINS_Ref_Switch)
+	#define	PINS_In_Switch PF0
+	#define PINS_Ref_Switch PF1
+	#define PINS_Comp_Input PF4
+	#define PINS_PortF	(PINS_In_Switch|PINS_Ref_Switch)
 	
 	//** Sets up the pins and hardware for the dual slope front end
 	static inline void Dual_Slope_Init(void)
 		{
-			DDRD |= (PINS_In_Switch|PINS_Ref_Switch); //output pins
-			DDRD &= !(PINS_Comp_Input); // input pins
-			PORTD &= !(PINS_In_Switch|PINS_Ref_Switch); // outputs low. 
+			DDRF |= (PINS_In_Switch|PINS_Ref_Switch); //output pins
+			DDRF &= !(PINS_Comp_Input); // input pins
+			PORTF &= !(PINS_In_Switch|PINS_Ref_Switch); // outputs low. 
 	
 		}
 	
 	// Turns on the specified pins and off the remainder
 	static inline void PINs_SetAll(const uint8_t PINMask)
 			{
-				PORTD = ((PORTD |  PINS_PortD) & ~(PINMask & PINS_PortD));
+				PORTF = ((PORTF |  PINS_PortF) & ~(PINMask & PINS_PortF));
 			}
 #endif
 
