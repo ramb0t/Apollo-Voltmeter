@@ -93,6 +93,7 @@ int main(void)
 		//CheckJoystickMovement();
 		LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 		_delay_ms(1000);
+		lcd_puts("Hi");
 		result = Read_DualSlope();
 		float result1 = result * 4.6875; // convert result to mV
 		//fputs(result1, &USBSerialStream);
@@ -130,7 +131,7 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	Joystick_Init();
-	lcd_init(LCD_DISP_ON);
+	lcd_init();
 	
 	//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 	
@@ -139,11 +140,11 @@ void SetupHardware(void)
 	LEDs_Init();
 	USB_Init();
 	
-	//lcd_clrscr();
+	lcd_clrscr();
 	lcd_puts("Hello World!");
-	lcd_puts("Hello World!");
-	lcd_gotoxy(0,1);
-	lcd_puts("Hello World!");
+	//lcd_puts("Hello World!");
+	//lcd_gotoxy(0,1);
+	//lcd_puts("Hello World!");
 }
 
 

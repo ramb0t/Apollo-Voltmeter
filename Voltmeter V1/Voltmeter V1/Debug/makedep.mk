@@ -4,7 +4,7 @@
 
 Descriptors.c
 
-src\Lib\LCD\lcd.c
+src\Lib\HD44780\hd44780.c
 
 src\LUFA\LUFA\Drivers\USB\Class\Common\HIDParser.c
 

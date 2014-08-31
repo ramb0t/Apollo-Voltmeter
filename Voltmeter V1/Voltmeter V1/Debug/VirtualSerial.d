@@ -124,7 +124,8 @@ VirtualSerial.d VirtualSerial.o: .././VirtualSerial.c \
  ../src/LUFA/LUFA/Drivers/Board/AVR8/LEONARDO/../../../../Common/Common.h \
  ../src/LUFA/LUFA/Drivers/Board/Joystick.h \
  ../src/LUFA/LUFA/Platform/Platform.h \
- ../src/LUFA/LUFA/Platform/../Common/Common.h ../src/Lib/LCD/lcd.h
+ ../src/LUFA/LUFA/Platform/../Common/Common.h \
+ ../src/Lib/HD44780/hd44780.h ../src/LUFA/../../hd44780_settings.h
 
 .././VirtualSerial.h:
 
@@ -378,4 +379,6 @@ c:\program\ files\ (x86)\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-g
 
 ../src/LUFA/LUFA/Platform/../Common/Common.h:
 
-../src/Lib/LCD/lcd.h:
+../src/Lib/HD44780/hd44780.h:
+
+../src/LUFA/../../hd44780_settings.h:

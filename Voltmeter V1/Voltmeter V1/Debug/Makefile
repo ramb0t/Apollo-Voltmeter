@@ -35,8 +35,7 @@ SUBDIRS :=  \
 ../src/ \
 ../src/config/ \
 ../src/Lib/ \
-../src/Lib/LCD/ \
-../src/Lib/LCD/.dep/ \
+../src/Lib/HD44780/ \
 ../src/LUFA/ \
 ../src/LUFA/LUFA/ \
 ../src/LUFA/LUFA/Common/ \
@@ -58,7 +57,7 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../Descriptors.c \
-../src/Lib/LCD/lcd.c \
+../src/Lib/HD44780/hd44780.c \
 ../src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.c \
 ../src/LUFA/LUFA/Drivers/USB/Class/Device/AudioClassDevice.c \
 ../src/LUFA/LUFA/Drivers/USB/Class/Device/CDCClassDevice.c \
@@ -104,7 +103,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 Descriptors.o \
-src/Lib/LCD/lcd.o \
+src/Lib/HD44780/hd44780.o \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.o \
 src/LUFA/LUFA/Drivers/USB/Class/Device/AudioClassDevice.o \
 src/LUFA/LUFA/Drivers/USB/Class/Device/CDCClassDevice.o \
@@ -143,7 +142,7 @@ VirtualSerial.o
 
 OBJS_AS_ARGS +=  \
 Descriptors.o \
-src/Lib/LCD/lcd.o \
+src/Lib/HD44780/hd44780.o \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.o \
 src/LUFA/LUFA/Drivers/USB/Class/Device/AudioClassDevice.o \
 src/LUFA/LUFA/Drivers/USB/Class/Device/CDCClassDevice.o \
@@ -182,7 +181,7 @@ VirtualSerial.o
 
 C_DEPS +=  \
 Descriptors.d \
-src/Lib/LCD/lcd.d \
+src/Lib/HD44780/hd44780.d \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.d \
 src/LUFA/LUFA/Drivers/USB/Class/Device/AudioClassDevice.d \
 src/LUFA/LUFA/Drivers/USB/Class/Device/CDCClassDevice.d \
@@ -221,7 +220,7 @@ VirtualSerial.d
 
 C_DEPS_AS_ARGS +=  \
 Descriptors.d \
-src/Lib/LCD/lcd.d \
+src/Lib/HD44780/hd44780.d \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.d \
 src/LUFA/LUFA/Drivers/USB/Class/Device/AudioClassDevice.d \
 src/LUFA/LUFA/Drivers/USB/Class/Device/CDCClassDevice.d \
@@ -276,7 +275,7 @@ LIB_DEP+=
 	@echo Finished building: $<
 	
 
-src/Lib/LCD/lcd.o: ../src/Lib/LCD/lcd.c
+src/Lib/HD44780/hd44780.o: ../src/Lib/HD44780/hd44780.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DBOARD=BOARD_LEONARDO -DDEBUG  -I"../src" -I"../src/LUFA" -I"../src/config" -I"../src/LUFA/."  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
@@ -536,7 +535,7 @@ src/LUFA/LUFA/Drivers/USB/Core/USBTask.o: ../src/LUFA/LUFA/Drivers/USB/Core/USBT
 	@echo Finished building: $<
 	
 
-src/Lib/LCD/%.o: ../src/Lib/LCD/%.c
+src/Lib/HD44780/%.o: ../src/Lib/HD44780/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DBOARD=BOARD_LEONARDO -DDEBUG  -I"../src" -I"../src/LUFA" -I"../src/config" -I"../src/LUFA/."  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

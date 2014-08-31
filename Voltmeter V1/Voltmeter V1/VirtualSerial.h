@@ -51,7 +51,7 @@
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Platform/Platform.h>
 		
-		#include <Lib/LCD/lcd.h>
+		#include <Lib/HD44780/hd44780.h>
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
