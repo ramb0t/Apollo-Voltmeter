@@ -88,12 +88,18 @@ int main(void)
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	GlobalInterruptEnable();
 	fputs("Welcome to Our Dual Slope Controller! \r\n", &USBSerialStream);
+	uint16_t time; 
 	for (;;)
 	{
 		//CheckJoystickMovement();
 		LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
+		time++;
 		_delay_ms(1000);
-		lcd_puts("Hi");
+		lcd_clrscr();
+		lcd_puts("Hi ");
+		char buffer[7];
+		itoa(time,buffer,10);
+		lcd_puts(buffer);
 		result = Read_DualSlope();
 		float result1 = result * 4.6875; // convert result to mV
 		//fputs(result1, &USBSerialStream);
@@ -131,17 +137,20 @@ void SetupHardware(void)
 
 	/* Hardware Initialization */
 	Joystick_Init();
-	lcd_init();
+	
 	
 	//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 	
 	
-	Dual_Slope_Init();
+	//Dual_Slope_Init();
 	LEDs_Init();
 	USB_Init();
-	
+	lcd_init();
+	_delay_ms(100);
 	lcd_clrscr();
 	lcd_puts("Hello World!");
+	DDRC |= 1<<6;
+	PORTC |= (1<<6);
 	//lcd_puts("Hello World!");
 	//lcd_gotoxy(0,1);
 	//lcd_puts("Hello World!");
