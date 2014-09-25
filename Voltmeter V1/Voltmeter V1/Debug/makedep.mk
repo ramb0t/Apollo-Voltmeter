@@ -6,6 +6,8 @@ Descriptors.c
 
 src\Lib\HD44780\hd44780.c
 
+src\Lib\UART\uart.c
+
 src\LUFA\LUFA\Drivers\USB\Class\Common\HIDParser.c
 
 src\LUFA\LUFA\Drivers\USB\Class\Device\AudioClassDevice.c

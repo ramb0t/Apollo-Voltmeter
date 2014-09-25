@@ -71,7 +71,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
  */
 static FILE USBSerialStream;
 
-uint8_t result; // used to store result of conversion 
+int8_t res; // used to store result of conversion 
 
 
 
@@ -81,6 +81,7 @@ uint8_t result; // used to store result of conversion
 int main(void)
 {
 	SetupHardware();
+	SetupUSART1();
 
 	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
@@ -101,12 +102,14 @@ int main(void)
 		itoa(time,buffer,10);
 		lcd_puts(buffer);
 		lcd_goto(0x40); // second line
-		result = Read_DualSlope();
-		double result1 = result * 4.6875; // convert result to mV
+		res = Read_DualSlope();
+		SendValLCD(res);
+		double result1 = res * 4.6875; // convert result to mV
 		sprintf(buffer,"%f",result1); 
+		itoa(res,buffer, 10);
 		fputs(buffer, &USBSerialStream);
 		fputs("mV \r\n", &USBSerialStream);
-		itoa(result,buffer, 10);
+		itoa(res,buffer, 10);
 		lcd_puts(buffer);
 
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
@@ -153,10 +156,56 @@ void SetupHardware(void)
 	_delay_ms(100);
 	lcd_clrscr();
 	lcd_puts("Hello World!");
-	DDRC |= 1<<6;
-	PORTC |= (1<<6);
 	Dual_Slope_Init();
 
+}
+
+/** Configures the board USART 1 module */
+void SetupUSART1(void)
+{
+	unsigned int c;
+    char buffer[7];
+    int  num=134;
+
+    
+    /*
+     *  Initialize UART library, pass baudrate and AVR cpu clock
+     *  with the macro 
+     *  UART_BAUD_SELECT() (normal speed mode )
+     *  or 
+     *  UART_BAUD_SELECT_DOUBLE_SPEED() ( double speed mode)
+     */
+    uart1_init( UART_BAUD_SELECT(UART_BAUD_RATE,F_CPU) ); 
+    
+    
+    /*
+     *  Transmit string to UART
+     *  The string is buffered by the uart library in a circular buffer
+     *  and one character at a time is transmitted to the UART using interrupts.
+     *  uart_puts() blocks if it can not write the whole string to the circular 
+     *  buffer
+     */
+    //uart1_puts("String stored in SRAM\n");
+    
+    /*
+     * Transmit string from program memory to UART
+     */
+    //uart1_puts_P("String stored in FLASH\n");
+    
+        
+    /* 
+     * Use standard avr-libc functions to convert numbers into string
+     * before transmitting via UART
+     */     
+    //itoa( num, buffer, 10);   // convert interger into string (decimal format)         
+    //uart1_puts(buffer);        // and transmit string to UART
+
+    
+    /*
+     * Transmit single character to UART
+     */
+    //uart1_putc('\r');
+	
 }
 
 
@@ -193,40 +242,58 @@ void CheckJoystickMovement(void)
 }
 
 /** Function to make measurement with Dual Slope hardware. Returns Nana Terayza if error value. Duh. #BaconPancakes */
-uint8_t Read_DualSlope(void)
+int8_t Read_DualSlope(void)
 {
-	#define t1	80
-	//Step1 
-	//PINs_SetAll(PINS_In_Switch); 
-	
-	PORTF &= !(1<<0);
-	_delay_ms(t1); // wait 80mS
-	PORTF |= 1<<0;
-	//Step2
-	
-	
-	//PINs_SetAll(PINS_Ref_Switch); // integrate and wait for zero crossing
-	PORTF |= 1<<1;
-	uint8_t t2 = 0;
-	uint8_t temp;
-	temp = DDRD;
-	DDRD &= !(1<<2); // input
-	
-	while(!(PIND & (1<<2))){ // pin4 is low
-		_delay_us(500);
-		t2++;
-		if (t2==255) break;
+	bool polFlag = 0;		// used to track polarity
+	// step 0, auto zero
+	C_SETBIT(InhSwt);		// disconnect input
+	C_CLEARBIT(IntSwt);	
+	C_SETBIT(ZeroSwt);		// zero cap
+	_delay_ms(ZERO_TIME);	// wait some time
+	C_CLEARBIT(ZeroSwt);	// zero off
+
+	// step 1, int for INT_TIME mS (80mS ?) 
+	C_CLEARBIT(InhSwt);		// turn switch on
+	C_SETBIT(IntSwt);		// select input
+	_delay_ms(INT_TIME/2);	// wait int time/2
+	// half way, check polarity
+	if(C_CHECKBIT(CompIn)){ // -ve pol
+		C_SETBIT(VrefSwt);
+		polFlag = 1;
+	}else{ // +ve pol
+		C_CLEARBIT(VrefSwt);
+		polFlag = 0;
 	}
-	DDRD = temp;
-	PORTF &= !(1<<1);
-	PORTF |= 1<<0;
-	//PINs_SetAll(0);
-	//Step3 
-	return t2;
+	_delay_ms(INT_TIME/2); // wait int time/2
 	
-	//Step4
-	//Step5
+	// step 2, dint for up to 160mS waiting for 0 crossing
+	C_CLEARBIT(IntSwt);		// select dint
 	
+	_delay_ms(DINT_TIME);
+	
+	// step 3, calc and output
+	int8_t result = 956;
+	
+	if(polFlag){//-ve
+		return result*-1;
+	}else{//+ve
+		return result;
+	}
+	
+}
+
+void SendValLCD(int8_t val){
+	// we need to send data to the lcd in the correct structure
+	
+	// send command first
+	uart1_putc(CMD_RESULT0);
+	uart1_putc(CMD_RESULT1);
+	
+	// now send data
+	uart1_putc(0x0F & val >> 12);
+	uart1_putc(0x0F & val >> 8);
+	uart1_putc(0x0F & val >> 4);
+	uart1_putc(0x0F & val );
 }
 
 /** Event handler for the library USB Connection event. */
