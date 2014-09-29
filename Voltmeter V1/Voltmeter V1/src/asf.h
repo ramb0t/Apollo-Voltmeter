@@ -52,9 +52,6 @@
  * running the ASF driver selector tool. Any changes will be discarded.
  */
 
-// From module: LUFA Board Hardware Information Driver
-#include <LUFA/Drivers/Board/Board.h>
-
 // From module: LUFA Board Joystick Driver
 #include <LUFA/Drivers/Board/Joystick.h>
 

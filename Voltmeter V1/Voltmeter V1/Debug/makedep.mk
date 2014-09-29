@@ -2,7 +2,11 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+ADC.c
+
 Descriptors.c
+
+Encoder.c
 
 src\Lib\HD44780\hd44780.c
 
@@ -75,6 +79,8 @@ src\LUFA\LUFA\Drivers\USB\Core\Events.c
 src\LUFA\LUFA\Drivers\USB\Core\HostStandardReq.c
 
 src\LUFA\LUFA\Drivers\USB\Core\USBTask.c
+
+Timer3_Capt.c
 
 VirtualSerial.c
 

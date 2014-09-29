@@ -43,44 +43,26 @@
 		#include <avr/interrupt.h>
 		#include <string.h>
 		#include <stdio.h>
+		#include <stdlib.h> // math? itoa? 
+		#include <math.h>
 		#include <inttypes.h> // float stuff? 
 
 		#include "Descriptors.h"
 
 		#include <LUFA/Drivers/Board/LEDs.h>
-		#include <LUFA/Drivers/Board/Joystick.h>
 		#include <LUFA/Drivers/USB/USB.h>
 		#include <LUFA/Platform/Platform.h>
 		
+		#include "globals.h"
 		#include "Lib/MyFunctions.h"
 		#include "Lib/HD44780/hd44780.h"
 		#include "Lib/UART/uart.h"
+		#include "Timer3_Capt.h"
+		#include "Encoder.h"
+		#include "ADC.h"
 		
-	/* Intergration Defines */
-		#define ZERO_TIME  30
-		#define INT_TIME  80
-		#define DINT_TIME  160
-		
-	/* Pin Defines: */
-		#define IntSwt	PORTB, 4
-		#define VrefSwt	PORTB, 5
-		#define ZeroSwt	PORTB, 6
-		
-		#define InhSwt	PORTC, 6
-		
-		#define CompIn	PORTC, 7
-		
-		#define PORTB_OUTS	(1<<4)|(1<<5)|(1<<6)
-		#define PORTB_INS	
-		#define PORTC_OUTS	(1<<6)
-		#define PORTC_INS	(1<<7)
-			
-		/* 9600 baud */
-		#define UART_BAUD_RATE      9600
-		
-	/* LCD Command defines */
-	#define	CMD_RESULT0	0xA0
-	#define CMD_RESULT1 0xA2
+	
+	
 
 	/* Macros: */
 		/** LED mask for the library LED driver, to indicate that the USB interface is not ready. */
@@ -98,41 +80,60 @@
 	/* Function Prototypes: */
 		void SetupHardware(void);
 		void SetupUSART1(void);
-		void CheckJoystickMovement(void);
-		int8_t Read_DualSlope(void);
-		void SendValLCD(int8_t);
+		int16_t Read_DualSlope(void);
+		void SendValLCD(int16_t, uint8_t, uint8_t);
+		void SendBlLCD(uint8_t);
+		void CheckBatt(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
 		void EVENT_USB_Device_ConfigurationChanged(void);
 		void EVENT_USB_Device_ControlRequest(void);
  
-	/* Inline Functions: */
-	#define	PINS_In_Switch PF0
-	#define PINS_Ref_Switch PF1
-	#define PINS_Comp_Input PF4
-	#define PINS_PortF	(PINS_In_Switch|PINS_Ref_Switch)
+
 	
 	//** Sets up the pins and hardware for the dual slope front end
 	static inline void Dual_Slope_Init(void)
 		{
 			// set PORTB I/O
 			SETBITMASK(DDRB, PORTB_OUTS);
+			//CLEARBITMASK(DDRB, PORTB_INS);
 			
 			// set PORTC I/O
 			SETBITMASK(DDRC, PORTC_OUTS);
-			CLEARBITMASK(DDRC, PORTC_INS); 
+			CLEARBITMASK(DDRC, PORTC_INS);
+			
+			// set PORTD I/O
+			SETBITMASK(DDRD, PORTD_OUTS);
+			CLEARBITMASK(DDRD, PORTD_INS);
+			
+			// set PORTE I/O
+			//SETBITMASK(DDRE, PORTE_OUTS);
+			CLEARBITMASK(DDRE, PORTE_INS);
+			
+			// set PORTF I/O
+			SETBITMASK(DDRF, PORTF_OUTS);
+			CLEARBITMASK(DDRF, PORTF_INS);
+			
+			C_SETBIT(BUZZ);		//Buzzer off
 			
 			C_CLEARBIT(IntSwt);		//Select input in
 			C_CLEARBIT(ZeroSwt);	//Auto Zero off
-			C_SETBIT(InhSwt);		//Inhibit Vref mux
+			C_SETBIT(IntInhSwt);	//Inhibit Vref mux
 			
 		}
+		
+		
+		/* makes a quick beep */ 
+		static inline void Beep(void){
+			C_CLEARBIT(BUZZ);
+			_delay_ms(10);
+			C_SETBIT(BUZZ);
+			
+		}
+		
+
 	
-	// Turns on the specified pins and off the remainder
-	static inline void PINs_SetAll(const uint8_t PINMask)
-			{
-				PORTF = ((PORTF |  PINS_PortF) & ~(PINMask & PINS_PortF));
-			}
+
 #endif
 

@@ -18,6 +18,8 @@ VirtualSerial.d VirtualSerial.o: .././VirtualSerial.c \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\stdio.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdarg.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\stdlib.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\math.h \
  .././Descriptors.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  ../src/LUFA/LUFA/Drivers/USB/USB.h \
@@ -32,7 +34,6 @@ VirtualSerial.d VirtualSerial.o: .././VirtualSerial.c \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\eeprom.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\boot.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include-fixed\limits.h \
- e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\math.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay.h \
  e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
  ../src/LUFA/LUFA/Drivers/USB/../../Common/Endianness.h \
@@ -120,13 +121,13 @@ VirtualSerial.d VirtualSerial.o: .././VirtualSerial.c \
  ../src/LUFA/LUFA/Drivers/USB/Class/StillImageClass.h \
  ../src/LUFA/LUFA/Drivers/Board/LEDs.h \
  ../src/LUFA/LUFA/Drivers/Board/../../Common/Common.h \
- ../src/LUFA/LUFA/Drivers/Board/AVR8/LEONARDO/LEDs.h \
- ../src/LUFA/LUFA/Drivers/Board/AVR8/LEONARDO/../../../../Common/Common.h \
- ../src/LUFA/LUFA/Drivers/Board/Joystick.h \
+ ../src/LUFA/LUFA/Drivers/Board/Board/LEDs.h \
+ ../src/LUFA/LUFA/Drivers/Board/Board/../../../Common/Common.h \
  ../src/LUFA/LUFA/Platform/Platform.h \
- ../src/LUFA/LUFA/Platform/../Common/Common.h ../src/Lib/MyFunctions.h \
- ../src/Lib/HD44780/hd44780.h ../src/LUFA/../../hd44780_settings.h \
- ../src/Lib/UART/uart.h
+ ../src/LUFA/LUFA/Platform/../Common/Common.h .././globals.h \
+ ../src/Lib/MyFunctions.h ../src/Lib/HD44780/hd44780.h \
+ ../src/LUFA/../../hd44780_settings.h ../src/Lib/UART/uart.h \
+ .././Timer3_Capt.h .././Encoder.h .././ADC.h
 
 .././VirtualSerial.h:
 
@@ -166,6 +167,10 @@ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-tool
 
 e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdarg.h:
 
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\stdlib.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\math.h:
+
 .././Descriptors.h:
 
 e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
@@ -193,8 +198,6 @@ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-tool
 e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\boot.h:
 
 e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include-fixed\limits.h:
-
-e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\math.h:
 
 e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay.h:
 
@@ -370,15 +373,15 @@ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-tool
 
 ../src/LUFA/LUFA/Drivers/Board/../../Common/Common.h:
 
-../src/LUFA/LUFA/Drivers/Board/AVR8/LEONARDO/LEDs.h:
+../src/LUFA/LUFA/Drivers/Board/Board/LEDs.h:
 
-../src/LUFA/LUFA/Drivers/Board/AVR8/LEONARDO/../../../../Common/Common.h:
-
-../src/LUFA/LUFA/Drivers/Board/Joystick.h:
+../src/LUFA/LUFA/Drivers/Board/Board/../../../Common/Common.h:
 
 ../src/LUFA/LUFA/Platform/Platform.h:
 
 ../src/LUFA/LUFA/Platform/../Common/Common.h:
+
+.././globals.h:
 
 ../src/Lib/MyFunctions.h:
 
@@ -387,3 +390,9 @@ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-tool
 ../src/LUFA/../../hd44780_settings.h:
 
 ../src/Lib/UART/uart.h:
+
+.././Timer3_Capt.h:
+
+.././Encoder.h:
+
+.././ADC.h:

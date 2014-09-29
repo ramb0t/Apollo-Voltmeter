@@ -29,24 +29,20 @@
 */
 
 /** \file
- *  \brief Board specific information header for the Arduino Leonardo board.
- *  \copydetails Group_BoardInfo_LEONARDO
+ *  \brief LUFA Custom Board Hardware Information Driver (Template)
  *
- *  \note This file should not be included directly. It is automatically included as needed by the Board driver
- *        dispatch header located in LUFA/Drivers/Board/Board.h.
+ *  This is a stub driver header file, for implementing custom board
+ *  layout hardware with compatible LUFA board specific drivers. If
+ *  the library is configured to use the BOARD_USER board mode, this
+ *  driver file should be completed and copied into the "/Board/" folder
+ *  inside the application's folder.
+ *
+ *  This stub is for the board-specific component of the LUFA Board Hardware
+ *  information driver.
  */
 
-/** \ingroup Group_BoardInfo
- *  \defgroup Group_BoardInfo_LEONARDO LEONARDO
- *  \brief Board specific information header for the Arduino Leonardo board.
- *
- *  Board specific information header for the Arduino Leonardo board (http://arduino.cc/en/Main/arduinoBoardLeonardo).
- *
- *  @{
- */
-
-#ifndef __BOARD_LEONARDO_H__
-#define __BOARD_LEONARDO_H__
+#ifndef __BOARD_USER_H__
+#define __BOARD_USER_H__
 
 	/* Includes: */
 		#include "../../../../Common/Common.h"
@@ -64,7 +60,16 @@
 
 	/* Public Interface - May be used in end-application: */
 		/* Macros: */
-			/** Indicates the board has hardware LEDs mounted. */
+			/** Indicates the board has hardware Buttons mounted if defined. */
+//			#define BOARD_HAS_BUTTONS
+
+			/** Indicates the board has a hardware Dataflash mounted if defined. */
+//			#define BOARD_HAS_DATAFLASH
+
+			/** Indicates the board has a hardware Joystick mounted if defined. */
+//			#define BOARD_HAS_JOYSTICK
+
+			/** Indicates the board has hardware LEDs mounted if defined. */
 			#define BOARD_HAS_LEDS
 
 	/* Disable C linkage for C++ Compilers: */

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Voltmeter V1", "Voltmeter V1\Voltmeter V1.cproj", "{FFB05D47-5649-4843-8A0A-D4B36A8A31FF}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO", "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO\BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.cproj", "{DAEFFADD-DB1C-4F13-8AB6-747B29722B29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -13,6 +15,10 @@ Global
 		{FFB05D47-5649-4843-8A0A-D4B36A8A31FF}.Debug|AVR.Build.0 = Debug|AVR
 		{FFB05D47-5649-4843-8A0A-D4B36A8A31FF}.Release|AVR.ActiveCfg = Release|AVR
 		{FFB05D47-5649-4843-8A0A-D4B36A8A31FF}.Release|AVR.Build.0 = Release|AVR
+		{DAEFFADD-DB1C-4F13-8AB6-747B29722B29}.Debug|AVR.ActiveCfg = Debug|AVR
+		{DAEFFADD-DB1C-4F13-8AB6-747B29722B29}.Debug|AVR.Build.0 = Debug|AVR
+		{DAEFFADD-DB1C-4F13-8AB6-747B29722B29}.Release|AVR.ActiveCfg = Release|AVR
+		{DAEFFADD-DB1C-4F13-8AB6-747B29722B29}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

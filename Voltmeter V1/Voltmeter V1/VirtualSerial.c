@@ -71,46 +71,43 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
  */
 static FILE USBSerialStream;
 
-int8_t res; // used to store result of conversion 
-
-
+volatile static uint8_t bl = 128;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
  */
 int main(void)
 {
+	int16_t res; // used to store result of conversion
+	
 	SetupHardware();
-	SetupUSART1();
+
 
 	/* Create a regular character stream for the interface so that it can be used with the stdio.h functions */
 	CDC_Device_CreateStream(&VirtualSerial_CDC_Interface, &USBSerialStream);
 
 	LEDs_SetAllLEDs(LEDMASK_USB_NOTREADY);
 	GlobalInterruptEnable();
+	
 	fputs("Welcome to Our Dual Slope Controller! \r\n", &USBSerialStream);
-	uint16_t time; 
+	
 	for (;;)
 	{
-		//CheckJoystickMovement();
-		LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
-		time++;
-		_delay_ms(250);
-		lcd_clrscr();
-		lcd_puts("Hi ");
+		CheckBatt();
 		char buffer[10];
-		itoa(time,buffer,10);
-		lcd_puts(buffer);
-		lcd_goto(0x40); // second line
+		SendBlLCD(bl);
+		itoa(bl,buffer, 10);
+		fputs(buffer, &USBSerialStream);
+		fputs(" Backlight \r\n", &USBSerialStream);
+		
+		//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 		res = Read_DualSlope();
-		SendValLCD(res);
-		double result1 = res * 4.6875; // convert result to mV
-		sprintf(buffer,"%f",result1); 
+		SendValLCD(res, CMD_RESULT0, CMD_RESULT1);
 		itoa(res,buffer, 10);
 		fputs(buffer, &USBSerialStream);
 		fputs("mV \r\n", &USBSerialStream);
-		itoa(res,buffer, 10);
-		lcd_puts(buffer);
+		
+
 
 		/* Must throw away unused bytes from the host, or it will lock up while waiting for the device */
 		CDC_Device_ReceiveByte(&VirtualSerial_CDC_Interface);
@@ -143,29 +140,20 @@ void SetupHardware(void)
 #endif
 
 	/* Hardware Initialization */
-	Joystick_Init();
 	
-	
-	//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
-	
-	
+	SetupUSART1();
+	init_timer3();
 	
 	LEDs_Init();
 	USB_Init();
-	lcd_init();
-	_delay_ms(100);
-	lcd_clrscr();
-	lcd_puts("Hello World!");
 	Dual_Slope_Init();
+	ENC_Init(); // setup encoder pins and interupts 
 
 }
 
 /** Configures the board USART 1 module */
 void SetupUSART1(void)
 {
-	unsigned int c;
-    char buffer[7];
-    int  num=134;
 
     
     /*
@@ -209,71 +197,72 @@ void SetupUSART1(void)
 }
 
 
-/** Checks for changes in the position of the board joystick, sending strings to the host upon each change. */
-void CheckJoystickMovement(void)
-{
-	uint8_t     JoyStatus_LCL = Joystick_GetStatus();
-	char*       ReportString  = NULL;
-	static bool ActionSent    = false;
-
-	if (JoyStatus_LCL & JOY_UP)
-	  ReportString = "Joystick Up\r\n";
-	else if (JoyStatus_LCL & JOY_DOWN)
-	  ReportString = "Joystick Down\r\n";
-	else if (JoyStatus_LCL & JOY_LEFT)
-	  ReportString = "Joystick Left\r\n";
-	else if (JoyStatus_LCL & JOY_RIGHT)
-	  ReportString = "Joystick Right\r\n";
-	else if (JoyStatus_LCL & JOY_PRESS)
-	  ReportString = "Joystick Pressed\r\n";
-	else
-	  ActionSent = false;
-
-	if ((ReportString != NULL) && (ActionSent == false))
-	{
-		ActionSent = true;
-
-		/* Write the string to the virtual COM port via the created character stream */
-		fputs(ReportString, &USBSerialStream);
-
-		/* Alternatively, without the stream: */
-		// CDC_Device_SendString(&VirtualSerial_CDC_Interface, ReportString);
-	}
-}
-
 /** Function to make measurement with Dual Slope hardware. Returns Nana Terayza if error value. Duh. #BaconPancakes */
-int8_t Read_DualSlope(void)
+int16_t Read_DualSlope(void)
 {
 	bool polFlag = 0;		// used to track polarity
 	// step 0, auto zero
-	C_SETBIT(InhSwt);		// disconnect input
+	C_SETBIT(IntInhSwt);		// disconnect input
 	C_CLEARBIT(IntSwt);	
 	C_SETBIT(ZeroSwt);		// zero cap
 	_delay_ms(ZERO_TIME);	// wait some time
 	C_CLEARBIT(ZeroSwt);	// zero off
 
 	// step 1, int for INT_TIME mS (80mS ?) 
-	C_CLEARBIT(InhSwt);		// turn switch on
+	C_CLEARBIT(IntInhSwt);		// turn switch on
 	C_SETBIT(IntSwt);		// select input
 	_delay_ms(INT_TIME/2);	// wait int time/2
 	// half way, check polarity
 	if(C_CHECKBIT(CompIn)){ // -ve pol
-		C_SETBIT(VrefSwt);
+		C_SETBIT(RefPolSwt);
+		trig_falling();
 		polFlag = 1;
 	}else{ // +ve pol
-		C_CLEARBIT(VrefSwt);
+		C_CLEARBIT(RefPolSwt);
+		trig_rising();
 		polFlag = 0;
 	}
 	_delay_ms(INT_TIME/2); // wait int time/2
 	
 	// step 2, dint for up to 160mS waiting for 0 crossing
 	C_CLEARBIT(IntSwt);		// select dint
+	start_input_capture();  // start the timer and wait for capture
 	
-	_delay_ms(DINT_TIME);
+	uint16_t capture =0;
+	
+	while(!(CHECKBITMASK(TIFR3, (1<<ICF3)|(1<<TOV3)))); // wait for a flag to fire
+	if(CHECKBIT(TIFR3, ICF3)){ // we have expected input capture
+		capture = get_capture_time();
+		char buffer[10];
+		ultoa(capture, buffer, 10);
+		fputs(buffer, &USBSerialStream);
+		fputs("cap\n", &USBSerialStream);
+	}else if(CHECKBIT(TIFR3, TOV3)){// Overflow! something went wrong!
+		capture = 10000;
+	}
+	// finally stop timer and clear flags
+	stop_and_clear_input_capture();
+	//LEDs_SetAllLEDs(LEDS_ALL_LEDS);
 	
 	// step 3, calc and output
-	int8_t result = 956;
-	
+	// formula is (T2/T1) * Vref
+	// first we need T2:
+	uint32_t T2 = capture; // 4uS per 'tick' so capture time * 4 gives T2 in uS
+	T2 = T2 *4;
+	char buffer[10];
+	ultoa(T2, buffer, 10);
+	fputs(buffer, &USBSerialStream);
+	fputs("T2\n", &USBSerialStream);
+	// do calc (no floating point please! )
+	T2 = (T2*VREF_MV)/INT_TIME_US;
+	ultoa(T2, buffer, 10);
+	fputs(buffer, &USBSerialStream);
+	fputs("T22\n", &USBSerialStream);
+	int16_t result = T2; // T2 should now be a max of 2460 (mV)
+	itoa(result, buffer, 10);
+	fputs(buffer, &USBSerialStream);
+	fputs("result\n", &USBSerialStream);
+	//LEDs_SetAllLEDs(LEDS_ALL_LEDS);
 	if(polFlag){//-ve
 		return result*-1;
 	}else{//+ve
@@ -282,18 +271,39 @@ int8_t Read_DualSlope(void)
 	
 }
 
-void SendValLCD(int8_t val){
+void SendValLCD(int16_t val, uint8_t cmd0, uint8_t cmd1){
 	// we need to send data to the lcd in the correct structure
 	
 	// send command first
-	uart1_putc(CMD_RESULT0);
-	uart1_putc(CMD_RESULT1);
+	uart1_putc(cmd0);
+	uart1_putc(cmd1);
 	
 	// now send data
 	uart1_putc(0x0F & val >> 12);
 	uart1_putc(0x0F & val >> 8);
 	uart1_putc(0x0F & val >> 4);
 	uart1_putc(0x0F & val );
+}
+
+void SendBlLCD(uint8_t backlight){
+		// send command first
+		uart1_putc(CMD_BACKLIGHT0);
+		uart1_putc(CMD_BACKLIGHT1);
+		
+		// now send data
+		uart1_putc(0x0F & backlight >> 4);
+		uart1_putc(0x0F & backlight);
+}
+
+void CheckBatt(void){
+	uint32_t vbatt = ADC_Start(ADC_VBAT_CHANNEL); // read the ADC voltage
+	vbatt = vbatt*ADC_AVcc_VALUE; // * ~5000mV
+	vbatt = vbatt >> 10; // /1024 , thus vbatt * 5000/1024 to scale
+	SendValLCD(vbatt, CMD_BATT0, CMD_BATT1); // should only take lower 16bits?
+	char buffer[10];
+	ultoa(vbatt, buffer, 10);
+	fputs(buffer, &USBSerialStream);
+	fputs(" mV Batt\r\n", &USBSerialStream);
 }
 
 /** Event handler for the library USB Connection event. */
@@ -324,3 +334,17 @@ void EVENT_USB_Device_ControlRequest(void)
 	CDC_Device_ProcessControlRequest(&VirtualSerial_CDC_Interface);
 }
 
+ISR(INT0_vect){
+	bl += ENC_ISR();
+	if(bl > 250){bl = 255;}
+	if(bl < 0){bl = 0;}
+	Beep();
+}
+
+ISR(INT1_vect){
+	bl += ENC_ISR();
+	if(bl > 255){bl = 255;}
+	if(bl < 0){bl = 0;}
+	Beep();
+
+}

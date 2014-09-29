@@ -1,0 +1,195 @@
+src/LUFA/LUFA/Drivers/USB/Core/DeviceStandardReq.d \
+ src/LUFA/LUFA/Drivers/USB/Core/DeviceStandardReq.o: \
+ ../src/LUFA/LUFA/Drivers/USB/Core/DeviceStandardReq.c \
+ ../src/LUFA/LUFA/Drivers/USB/Core/USBMode.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Common.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdint.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\stdint.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdbool.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\string.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Architectures.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/BoardTypes.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/ArchitectureSpecific.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/CompilerSpecific.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Attributes.h \
+ ../src/config/LUFAConfig.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\io.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\inttypes.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\iom32u4.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\portpins.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\common.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\version.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\fuse.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\lock.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\eeprom.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\boot.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include-fixed\limits.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\math.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay.h \
+ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay_basic.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Endianness.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/DeviceStandardReq.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/StdDescriptors.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/Events.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/StdRequestType.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/USBTask.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/USBController.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../../../../Common/Common.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBMode.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Events.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBTask.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBInterrupt.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../../../../Common/Common.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBMode.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/USBInterrupt_AVR8.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../../../../Common/Common.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBMode.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../Events.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBController.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Device.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../StdDescriptors.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBInterrupt.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Endpoint.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBTask.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBInterrupt.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/Device_AVR8.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../StdDescriptors.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../Endpoint.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Endpoint.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../EndpointStream.h \
+ ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/EndpointStream_AVR8.h
+
+../src/LUFA/LUFA/Drivers/USB/Core/USBMode.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Common.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdint.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\stdint.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stdbool.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\string.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include\stddef.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Architectures.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/BoardTypes.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/ArchitectureSpecific.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/CompilerSpecific.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Attributes.h:
+
+../src/config/LUFAConfig.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\io.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\sfr_defs.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\inttypes.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\iom32u4.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\portpins.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\common.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\version.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\fuse.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\lock.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\pgmspace.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\eeprom.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\avr\boot.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\lib\gcc\avr\4.8.1\include-fixed\limits.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\math.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay.h:
+
+e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-toolchain\avr\include\util\delay_basic.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/../../../Common/Endianness.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/DeviceStandardReq.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/StdDescriptors.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/Events.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/StdRequestType.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/USBTask.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/USBController.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/USBController_AVR8.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../../../../Common/Common.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBMode.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Events.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBTask.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBInterrupt.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../../../../Common/Common.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBMode.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/USBInterrupt_AVR8.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../../../../Common/Common.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBMode.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../Events.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBController.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Device.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../StdDescriptors.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../USBInterrupt.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Endpoint.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/Endpoint_AVR8.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBTask.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../USBInterrupt.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/Device_AVR8.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../StdDescriptors.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/../Endpoint.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../Endpoint.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../DeviceStandardReq.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../EndpointStream.h:
+
+../src/LUFA/LUFA/Drivers/USB/Core/AVR8/../AVR8/EndpointStream_AVR8.h:
