@@ -5,7 +5,7 @@
   dean [at] fourwalledcubicle [dot] com
            www.lufa-lib.org
 */
-
+// avrdude -p m32u4 -c avr109 -P COM65 -U flash:w:"$(ProjectDir)Debug\Voltmeter V1.hex":i
 /*
   Copyright 2014  Dean Camera (dean [at] fourwalledcubicle [dot] com)
 

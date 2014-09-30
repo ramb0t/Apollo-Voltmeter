@@ -55,7 +55,6 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../BootloaderAPI.c \
 ../BootloaderCDC.c \
 ../Descriptors.c \
 ../src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.c \
@@ -94,16 +93,13 @@ C_SRCS +=  \
 ../src/LUFA/LUFA/Drivers/USB/Core/USBTask.c
 
 
-PREPROCESSING_SRCS +=  \
-../BootloaderAPITable.S
+PREPROCESSING_SRCS += 
 
 
 ASM_SRCS += 
 
 
 OBJS +=  \
-BootloaderAPI.o \
-BootloaderAPITable.o \
 BootloaderCDC.o \
 Descriptors.o \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.o \
@@ -142,8 +138,6 @@ src/LUFA/LUFA/Drivers/USB/Core/HostStandardReq.o \
 src/LUFA/LUFA/Drivers/USB/Core/USBTask.o
 
 OBJS_AS_ARGS +=  \
-BootloaderAPI.o \
-BootloaderAPITable.o \
 BootloaderCDC.o \
 Descriptors.o \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.o \
@@ -182,8 +176,6 @@ src/LUFA/LUFA/Drivers/USB/Core/HostStandardReq.o \
 src/LUFA/LUFA/Drivers/USB/Core/USBTask.o
 
 C_DEPS +=  \
-BootloaderAPI.d \
-BootloaderAPITable.d \
 BootloaderCDC.d \
 Descriptors.d \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.d \
@@ -222,8 +214,6 @@ src/LUFA/LUFA/Drivers/USB/Core/HostStandardReq.d \
 src/LUFA/LUFA/Drivers/USB/Core/USBTask.d
 
 C_DEPS_AS_ARGS +=  \
-BootloaderAPI.d \
-BootloaderAPITable.d \
 BootloaderCDC.d \
 Descriptors.d \
 src/LUFA/LUFA/Drivers/USB/Class/Common/HIDParser.d \
@@ -272,8 +262,6 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
-
-
 
 
 
@@ -403,20 +391,6 @@ src/LUFA/LUFA/Drivers/USB/Core/%.o: ../src/LUFA/LUFA/Drivers/USB/Core/%.c
 
 
 # AVR32/GNU Assembler
-./BootloaderAPITable.o: .././BootloaderAPITable.S
-	@echo Building file: $<
-	@echo Invoking: AVR32/GNU Assembler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -Wa,-gdwarf2 -x assembler-with-cpp -c -mmcu=atmega32u4 -DARCH=ARCH_AVR8 -DBOARD=BOARD_NONE -DBOOT_START_ADDR=0x7000 -DF_CPU=16000000UL -DF_USB=16000000UL -DUSE_LUFA_CONFIG_HEADER -I "../src" -I "." -I "../src/LUFA" -I "../src/config"  -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -Wa,-g   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-
-./%.o: .././%.S
-	@echo Building file: $<
-	@echo Invoking: AVR32/GNU Assembler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -Wa,-gdwarf2 -x assembler-with-cpp -c -mmcu=atmega32u4 -DARCH=ARCH_AVR8 -DBOARD=BOARD_NONE -DBOOT_START_ADDR=0x7000 -DF_CPU=16000000UL -DF_USB=16000000UL -DUSE_LUFA_CONFIG_HEADER -I "../src" -I "." -I "../src/LUFA" -I "../src/config"  -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)" -Wa,-g   -o "$@" "$<" 
-	@echo Finished building: $<
-	
 
 
 

@@ -106,6 +106,26 @@ void Application_Jump_Check(void)
 	}
 }
 
+/* Bootloader timeout timer */
+#define TIMEOUT_PERIOD 8000
+uint16_t Timeout = 0;
+
+void StartSketch(void)
+{
+	cli();
+	/* Undo TIMER1 setup and clear the count before running the sketch */
+	TIMSK1 = 0;
+	TCCR1B = 0;
+	TCNT1H = 0;	// 16-bit write to TCNT1 requires high byte be written first
+	TCNT1L = 0;
+	/* Relocate the interrupt vector table to the application section */
+	MCUCR = (1 << IVCE);
+	MCUCR = 0;
+	
+	/* jump to beginning of application space */
+	__asm__ volatile("jmp 0x0000");
+}
+
 /** Main program entry point. This routine configures the hardware required by the bootloader, then continuously
  *  runs the bootloader processing routine until instructed to soft-exit, or hard-reset via the watchdog to start
  *  the loaded application code.
@@ -125,6 +145,10 @@ int main(void)
 	{
 		CDC_Task();
 		USB_USBTask();
+		/* Time out and start the sketch if one is present */
+		if (Timeout > TIMEOUT_PERIOD){
+		RunBootloader = false;}
+
 	}
 
 	/* Disconnect from the host - USB interface will be reset later along with the AVR */
@@ -152,20 +176,48 @@ static void SetupHardware(void)
 	/* Relocate the interrupt vector table to the bootloader section */
 	MCUCR = (1 << IVCE);
 	MCUCR = (1 << IVSEL);
+	
+	CPU_PRESCALE(0);
 
 	/* Initialize the USB and other board hardware drivers */
 	USB_Init();
 	LEDs_Init();
 
 	/* Bootloader active LED toggle timer initialization */
-	TIMSK1 = (1 << TOIE1);
-	TCCR1B = ((1 << CS11) | (1 << CS10));
+	//TIMSK1 = (1 << TOIE1);
+	//TCCR1B = ((1 << CS11) | (1 << CS10));
+	
+	/* Initialize TIMER1 to handle bootloader timeout and LED tasks.
+	* With 16 MHz clock and 1/64 prescaler, timer 1 is clocked at 250 kHz
+	* Our chosen compare match generates an interrupt every 1 ms.
+	* This interrupt is disabled selectively when doing memory reading, erasing,
+	* or writing since SPM has tight timing requirements.
+	*/
+	OCR1AH = 0;
+	OCR1AL = 250;
+	TIMSK1 = (1 << OCIE1A);	// enable timer 1 output compare A match interrupt
+	TCCR1B = ((1 << CS11) | (1 << CS10));	// 1/64 prescaler on timer 1 input
 }
 
 /** ISR to periodically toggle the LEDs on the board to indicate that the bootloader is active. */
-ISR(TIMER1_OVF_vect, ISR_BLOCK)
+//ISR(TIMER1_OVF_vect, ISR_BLOCK)
+//{
+//	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
+//}
+
+ISR(TIMER1_COMPA_vect, ISR_BLOCK)
 {
+	/* Reset counter */
+	TCNT1H = 0;
+	TCNT1L = 0;
+	/* Check whether the TX or RX LED one-shot period has elapsed. if so, turn off the LED */
+	//if (TxLEDPulse && !(--TxLEDPulse))
+	//TX_LED_OFF();
+	//if (RxLEDPulse && !(--RxLEDPulse))
+	//RX_LED_OFF();
 	LEDs_ToggleLEDs(LEDS_LED1 | LEDS_LED2);
+	if (pgm_read_word(0) != 0xFFFF)
+	Timeout++;
 }
 
 /** Event handler for the USB_ConfigurationChanged event. This configures the device's endpoints ready
@@ -260,6 +312,10 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 
 		return;
 	}
+	
+	/* Disable timer 1 interrupt - can't afford to process nonessential interrupts
+	 * while doing SPM tasks */
+	TIMSK1 = 0;
 
 	/* Check if command is to read a memory block */
 	if (Command == AVR109_COMMAND_BlockRead)
@@ -347,6 +403,8 @@ static void ReadWriteMemoryBlock(const uint8_t Command)
 		/* Send response byte back to the host */
 		WriteNextResponseByte('\r');
 	}
+	/* Re-enable timer 1 interrupt disabled earlier in this routine */
+	TIMSK1 = (1 << OCIE1A);
 }
 #endif
 
@@ -419,7 +477,15 @@ static void CDC_Task(void)
 
 	if (Command == AVR109_COMMAND_ExitBootloader)
 	{
-		RunBootloader = false;
+		/* We nearly run out the bootloader timeout clock, 
+		* leaving just a few hundred milliseconds so the 
+		* bootloder has time to respond and service any 
+		* subsequent requests */
+		Timeout = TIMEOUT_PERIOD - 500;
+	
+		/* Re-enable RWW section - must be done here in case 
+		 * user has disabled verification on upload.  */
+		boot_rww_enable_safe();		
 
 		/* Send confirmation byte back to the host */
 		WriteNextResponseByte('\r');

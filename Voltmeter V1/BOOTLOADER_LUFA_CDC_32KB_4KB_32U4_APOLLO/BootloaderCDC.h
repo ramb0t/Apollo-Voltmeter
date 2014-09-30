@@ -46,7 +46,7 @@
 		#include <stdbool.h>
 
 		#include "Descriptors.h"
-		#include "BootloaderAPI.h"
+		//#include "BootloaderAPI.h"
 		#include "Config/AppConfig.h"
 
 		#include <LUFA/Drivers/USB/USB.h>
@@ -73,6 +73,8 @@
 
 		/** Eight character bootloader firmware identifier reported to the host when requested. */
 		#define SOFTWARE_IDENTIFIER          "LUFACDC"
+		
+		#define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
 
 		/** Magic bootloader key to unlock forced application start mode. */
 		#define MAGIC_BOOT_KEY               0xDC42
@@ -125,6 +127,8 @@
 		typedef void (*AppPtr_t)(void) ATTR_NO_RETURN;
 
 	/* Function Prototypes: */
+		void StartSketch(void);
+		
 		static void CDC_Task(void);
 		static void SetupHardware(void);
 

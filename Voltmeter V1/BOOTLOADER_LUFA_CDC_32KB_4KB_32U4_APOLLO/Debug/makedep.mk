@@ -2,10 +2,6 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-BootloaderAPI.c
-
-BootloaderAPITable.S
-
 BootloaderCDC.c
 
 Descriptors.c

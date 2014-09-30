@@ -117,8 +117,7 @@ BootloaderCDC.d BootloaderCDC.o: .././BootloaderCDC.c \
  ../src/LUFA/LUFA/Drivers/USB/Class/Device/../Common/RNDISClassCommon.h \
  ../src/LUFA/LUFA/Drivers/USB/Class/Device/../Common/CDCClassCommon.h \
  ../src/LUFA/LUFA/Drivers/USB/Class/StillImageClass.h \
- .././Config/AppConfig.h .././BootloaderAPI.h \
- ../src/LUFA/LUFA/Common/Common.h ../src/LUFA/LUFA/Drivers/Board/LEDs.h \
+ .././Config/AppConfig.h ../src/LUFA/LUFA/Drivers/Board/LEDs.h \
  ../src/LUFA/LUFA/Drivers/Board/../../Common/Common.h \
  ../src/LUFA/LUFA/Drivers/Board/Board/LEDs.h \
  ../src/LUFA/LUFA/Drivers/Board/Board/../../../Common/Common.h \
@@ -364,10 +363,6 @@ e:\program\ files\atmel\atmel\ toolchain\avr8\ gcc\native\3.4.1056\avr8-gnu-tool
 ../src/LUFA/LUFA/Drivers/USB/Class/StillImageClass.h:
 
 .././Config/AppConfig.h:
-
-.././BootloaderAPI.h:
-
-../src/LUFA/LUFA/Common/Common.h:
 
 ../src/LUFA/LUFA/Drivers/Board/LEDs.h:
 
