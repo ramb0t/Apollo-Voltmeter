@@ -338,49 +338,49 @@ LIB_DEP+=
 ./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 src/LUFA/LUFA/Drivers/USB/Class/Common/%.o: ../src/LUFA/LUFA/Drivers/USB/Class/Common/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 src/LUFA/LUFA/Drivers/USB/Class/Device/%.o: ../src/LUFA/LUFA/Drivers/USB/Class/Device/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 src/LUFA/LUFA/Drivers/USB/Class/Host/%.o: ../src/LUFA/LUFA/Drivers/USB/Class/Host/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 src/LUFA/LUFA/Drivers/USB/Core/AVR8/%.o: ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 src/LUFA/LUFA/Drivers/USB/Core/AVR8/Template/%.o: ../src/LUFA/LUFA/Drivers/USB/Core/AVR8/Template/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 src/LUFA/LUFA/Drivers/USB/Core/%.o: ../src/LUFA/LUFA/Drivers/USB/Core/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG -DBOARD=BOARD_USER -DUSE_LUFA_CONFIG_HEADER -DF_USB=16000000UL -DARCH=ARCH_AVR8 -DF_CPU=16000000UL -DBOOT_START_ADDR=0x7000  -I"../src" -I"." -I"../src/LUFA" -I"../src/config"  -Os -fdata-sections -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g3 -Wall -mmcu=atmega32u4 -c -mrelax -std=gnu99 -fno-strict-aliasing -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
@@ -409,13 +409,13 @@ all: $(OUTPUT_FILE_PATH) $(ADDITIONAL_DEPENDENCIES)
 $(OUTPUT_FILE_PATH): $(OBJS) $(USER_OBJS) $(OUTPUT_FILE_DEP) $(LIB_DEP)
 	@echo Building target: $@
 	@echo Invoking: AVR/GNU Linker : 4.8.1
-	$(QUOTE)E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega32u4 -Wl,--section-start=.apitable_jumptable=0x7FE0 -Wl,--section-start=.apitable_signatures=0x7FF8 -Wl,--section-start=.apitable_trampolines=0x7FA0 -Wl,--section-start=.text=0x7000 -Wl,--undefined=BootloaderAPI_JumpTable -Wl,--undefined=BootloaderAPI_Signatures -Wl,--undefined=BootloaderAPI_Trampolines  
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE) -o$(OUTPUT_FILE_PATH_AS_ARGS) $(OBJS_AS_ARGS) $(USER_OBJS) $(LIBS) -Wl,-Map="BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega32u4 -Wl,--section-start=.apitable_jumptable=0x7FE0 -Wl,--section-start=.apitable_signatures=0x7FF8 -Wl,--section-start=.apitable_trampolines=0x7FA0 -Wl,--section-start=.text=0x7000 -Wl,--undefined=BootloaderAPI_JumpTable -Wl,--undefined=BootloaderAPI_Signatures -Wl,--undefined=BootloaderAPI_Trampolines  
 	@echo Finished building target: $@
-	"E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.hex"
-	"E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.eep" || exit 0
-	"E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" > "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.lss"
-	"E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.srec"
-	"E:\Program Files\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-size.exe" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.hex"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.eep" || exit 0
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" > "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.lss"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.srec"
+	"C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR8 GCC\Native\3.4.1056\avr8-gnu-toolchain\bin\avr-size.exe" "BOOTLOADER_LUFA_CDC_32KB_4KB_32U4_APOLLO.elf"
 	
 	
 

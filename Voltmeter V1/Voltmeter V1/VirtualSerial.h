@@ -55,7 +55,7 @@
 		
 		#include "globals.h"
 		#include "Lib/MyFunctions.h"
-		#include "Lib/HD44780/hd44780.h"
+		//#include "Lib/HD44780/hd44780.h"
 		#include "Lib/UART/uart.h"
 		#include "Timer3_Capt.h"
 		#include "Encoder.h"
@@ -136,7 +136,7 @@
 		/* makes a quick beep */ 
 		static inline void Beep(void){
 			C_CLEARBIT(BUZZ);
-			_delay_ms(10);
+			_delay_ms(5);
 			C_SETBIT(BUZZ);
 			
 		}
