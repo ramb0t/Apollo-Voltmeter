@@ -13,7 +13,7 @@
 #define INT_TIME  80
 #define INT_TIME_US	80000
 #define DINT_TIME  160
-#define VREF_MV		1230
+#define VREF_MV		1086
 
 /* Pin Defines: */
 #define RXLED		PORTB, 0 // Active Low
@@ -26,19 +26,19 @@
 #define TXLED		PORTB, 7 // Active Low
 
 #define RefPolSwt	PORTC, 6
-#define CompIn		PORTC, 7 // Input ICP3
+#define CompIn		PINC, 7	 // Input ICP3
 
-#define ENC_A_IN	PORTD, 0 // INT0
-#define ENC_B_IN	PORTD, 1 // INT1
+#define ENC_A_IN	PIND, 0  // INT0
+#define ENC_B_IN	PIND, 1  // INT1
 #define LCD_TXO		PORTD, 2 // USART Tx
 #define LCD_RXI		PORTD, 3 // USART Rx
-#define ARIn		PORTD, 4 // Input ICP1
+#define ARIn		PIND, 4  // Input ICP1
 #define StatusLED	PORTD, 5 // Active High
 #define IntInhSwt	PORTD, 6
 #define ZeroSwt		PORTD, 7
 
 #define HWB			PORTE, 2 // Tied to GND
-#define ENC_Swt		PORTE, 6 // INT6
+#define ENC_Swt		PINE, 6  // INT6
 
 #define VBAT		PORTF, 0 // ADC0
 #define BUZZ		PORTF, 1
@@ -59,6 +59,11 @@
 #define PORTF_OUTS	(1<<1)|(1<<4)|(1<<5)|(1<<6)|(1<<7)
 #define PORTF_INS	(1<<0)
 
+/* Range Defines */
+#define RANGE4	 0
+#define RANGE40	 1
+#define RANGE400 2
+
 /* 9600 baud */
 #define UART_BAUD_RATE      9600
 
@@ -71,6 +76,9 @@
 
 #define CMD_BACKLIGHT0 0xF5
 #define CMD_BACKLIGHT1 0xF6
+
+#define CMD_RANGE0 0xF9
+#define CMD_RANGE1 0xF1
 
 /* ADC Defines */ 
 #define ADC_AVcc_VALUE			5050 //mV

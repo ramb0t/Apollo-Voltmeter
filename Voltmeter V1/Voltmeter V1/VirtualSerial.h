@@ -81,9 +81,12 @@
 		void SetupHardware(void);
 		void SetupUSART1(void);
 		int16_t Read_DualSlope(void);
-		void SendValLCD(int16_t, uint8_t, uint8_t);
-		void SendBlLCD(uint8_t);
+		void SendInt16LCD(int16_t, uint8_t, uint8_t);
+		void SendUInt8LCD(uint8_t, uint8_t, uint8_t);
 		void CheckBatt(void);
+		void SelectRange(uint8_t);
+		void SelectHigherRange(void);
+		void SelectLowerRange(void);
 
 		void EVENT_USB_Device_Connect(void);
 		void EVENT_USB_Device_Disconnect(void);
@@ -117,9 +120,15 @@
 			
 			C_SETBIT(BUZZ);		//Buzzer off
 			
-			C_CLEARBIT(IntSwt);		//Select input in
-			C_CLEARBIT(ZeroSwt);	//Auto Zero off
-			C_SETBIT(IntInhSwt);	//Inhibit Vref mux
+			C_SETBIT(ARInh);		//Inh input
+			// dont need worry about A/B/C then!
+			C_SETBIT(IntInhSwt);	//Disable Input
+			
+			C_SETBIT(ZeroSwt);		//Zero Cap
+			
+			// Default state, all off, cap shorted
+			
+			
 			
 		}
 		

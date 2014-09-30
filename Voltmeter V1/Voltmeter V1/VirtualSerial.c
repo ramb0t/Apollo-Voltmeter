@@ -72,6 +72,7 @@ USB_ClassInfo_CDC_Device_t VirtualSerial_CDC_Interface =
 static FILE USBSerialStream;
 
 volatile static uint8_t bl = 128;
+volatile static uint8_t	range = RANGE4;
 
 /** Main program entry point. This routine contains the overall program flow, including initial
  *  setup of all components and the main program loop.
@@ -91,18 +92,19 @@ int main(void)
 	
 	fputs("Welcome to Our Dual Slope Controller! \r\n", &USBSerialStream);
 	
+	
 	for (;;)
 	{
 		CheckBatt();
 		char buffer[10];
-		SendBlLCD(bl);
+		SendUInt8LCD(bl, CMD_BACKLIGHT0, CMD_BACKLIGHT1);
 		itoa(bl,buffer, 10);
 		fputs(buffer, &USBSerialStream);
 		fputs(" Backlight \r\n", &USBSerialStream);
 		
 		//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 		res = Read_DualSlope();
-		SendValLCD(res, CMD_RESULT0, CMD_RESULT1);
+		SendInt16LCD(res, CMD_RESULT0, CMD_RESULT1);
 		itoa(res,buffer, 10);
 		fputs(buffer, &USBSerialStream);
 		fputs("mV \r\n", &USBSerialStream);
@@ -200,17 +202,22 @@ void SetupUSART1(void)
 /** Function to make measurement with Dual Slope hardware. Returns Nana Terayza if error value. Duh. #BaconPancakes */
 int16_t Read_DualSlope(void)
 {
+	C_CLEARBIT(ARInh);      // input on
 	bool polFlag = 0;		// used to track polarity
 	// step 0, auto zero
 	C_SETBIT(IntInhSwt);		// disconnect input
-	C_CLEARBIT(IntSwt);	
 	C_SETBIT(ZeroSwt);		// zero cap
 	_delay_ms(ZERO_TIME);	// wait some time
 	C_CLEARBIT(ZeroSwt);	// zero off
 
 	// step 1, int for INT_TIME mS (80mS ?) 
-	C_CLEARBIT(IntInhSwt);		// turn switch on
+	C_CLEARBIT(ARSwt);		// select input
+	C_CLEARBIT(RefSwt);		// select input
 	C_SETBIT(IntSwt);		// select input
+	
+	C_CLEARBIT(IntInhSwt);		// turn switch on
+	
+	
 	_delay_ms(INT_TIME/2);	// wait int time/2
 	// half way, check polarity
 	if(C_CHECKBIT(CompIn)){ // -ve pol
@@ -226,6 +233,7 @@ int16_t Read_DualSlope(void)
 	
 	// step 2, dint for up to 160mS waiting for 0 crossing
 	C_CLEARBIT(IntSwt);		// select dint
+	C_SETBIT(RefSwt);
 	start_input_capture();  // start the timer and wait for capture
 	
 	uint16_t capture =0;
@@ -259,6 +267,13 @@ int16_t Read_DualSlope(void)
 	fputs(buffer, &USBSerialStream);
 	fputs("T22\n", &USBSerialStream);
 	int16_t result = T2; // T2 should now be a max of 2460 (mV)
+	result = result *2;
+	
+	if(result > 4000){
+		SelectHigherRange();
+	}else if(result < 400){
+		SelectLowerRange();
+	}
 	itoa(result, buffer, 10);
 	fputs(buffer, &USBSerialStream);
 	fputs("result\n", &USBSerialStream);
@@ -271,7 +286,7 @@ int16_t Read_DualSlope(void)
 	
 }
 
-void SendValLCD(int16_t val, uint8_t cmd0, uint8_t cmd1){
+void SendInt16LCD(int16_t val, uint8_t cmd0, uint8_t cmd1){
 	// we need to send data to the lcd in the correct structure
 	
 	// send command first
@@ -285,25 +300,61 @@ void SendValLCD(int16_t val, uint8_t cmd0, uint8_t cmd1){
 	uart1_putc(0x0F & val );
 }
 
-void SendBlLCD(uint8_t backlight){
+void SendUInt8LCD(uint8_t byte, uint8_t cmd0, uint8_t cmd1){
 		// send command first
-		uart1_putc(CMD_BACKLIGHT0);
-		uart1_putc(CMD_BACKLIGHT1);
+		uart1_putc(cmd0);
+		uart1_putc(cmd1);
 		
 		// now send data
-		uart1_putc(0x0F & backlight >> 4);
-		uart1_putc(0x0F & backlight);
+		uart1_putc(0x0F & byte >> 4);
+		uart1_putc(0x0F & byte);
 }
 
 void CheckBatt(void){
 	uint32_t vbatt = ADC_Start(ADC_VBAT_CHANNEL); // read the ADC voltage
 	vbatt = vbatt*ADC_AVcc_VALUE; // * ~5000mV
 	vbatt = vbatt >> 10; // /1024 , thus vbatt * 5000/1024 to scale
-	SendValLCD(vbatt, CMD_BATT0, CMD_BATT1); // should only take lower 16bits?
+	SendInt16LCD(vbatt, CMD_BATT0, CMD_BATT1); // should only take lower 16bits?
 	char buffer[10];
 	ultoa(vbatt, buffer, 10);
 	fputs(buffer, &USBSerialStream);
 	fputs(" mV Batt\r\n", &USBSerialStream);
+}
+
+
+
+void SelectRange(uint8_t div){
+	if(div == RANGE4){ // lowest range
+		C_CLEARBIT(ARX);
+		C_CLEARBIT(ARY);
+	}else if(div == RANGE40){
+		C_CLEARBIT(ARX);
+		C_SETBIT(ARY);
+	}else if(div == RANGE400){
+		C_SETBIT(ARX);
+		C_SETBIT(ARY);
+	}else{ 
+		//huh? 
+	}
+	SendUInt8LCD(div, CMD_RANGE0, CMD_RANGE1); // send range to lcd
+}
+
+void SelectHigherRange(void){
+	if(range == RANGE4){
+		range = RANGE40;
+	}else if(range == RANGE40){
+		range = RANGE400;
+	}
+	SelectRange(range);
+}
+
+void SelectLowerRange(void){
+	if(range == RANGE400){
+		range = RANGE40;
+	}else if(range == RANGE40){
+		range = RANGE4;
+	}
+	SelectRange(range);
 }
 
 /** Event handler for the library USB Connection event. */
