@@ -105,7 +105,9 @@ int main(void)
 		//LEDs_ToggleLEDs(LEDS_LED1|LEDS_LED2|LEDS_LED3);
 		res = Read_DualSlope();
 		SendInt16LCD(res, CMD_RESULT0, CMD_RESULT1);
-		itoa(res,buffer, 10);
+		int32_t mres = res;
+		mres = mres*4;
+		ltoa(mres,buffer, 10);
 		fputs(buffer, &USBSerialStream);
 		fputs("mV \r\n", &USBSerialStream);
 		
@@ -267,13 +269,13 @@ int16_t Read_DualSlope(void)
 	fputs(buffer, &USBSerialStream);
 	fputs("T22\n", &USBSerialStream);
 	int16_t result = T2; // T2 should now be a max of 2460 (mV)
-	result = result *2;
+	//result = result * 4;
 	
-	if(result > 4000){
-		SelectHigherRange();
-	}else if(result < 400){
-		SelectLowerRange();
-	}
+	//if(result > 4000){
+		//SelectHigherRange();
+	//}else if(result < 400){
+		//SelectLowerRange();
+	//}
 	itoa(result, buffer, 10);
 	fputs(buffer, &USBSerialStream);
 	fputs("result\n", &USBSerialStream);
